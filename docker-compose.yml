@@ -27,3 +27,4 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
       - ${WEBAPP_STORAGE_HOME}/db:/var/lib/mysql
+test edit
