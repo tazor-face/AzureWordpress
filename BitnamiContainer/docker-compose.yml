@@ -18,11 +18,9 @@ services:
       - fix-mariadb-volume-ownership
   wordpress:
     image: 'bitnami/wordpress:latest'
-    labels:
-      kompose.service.type: nodeport
+    user: root
     ports:
-      - '80'
-      - '443'
+      - '8000:80'
     volumes:
       - '${WEBAPP_STORAGE_HOME}/site/wwwroot:/bitnami'
     depends_on:
