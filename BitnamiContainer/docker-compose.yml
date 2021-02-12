@@ -3,7 +3,7 @@ services:
   mariadb:
     image: 'docker.io/bitnami/mariadb:10.3-debian-10'
     volumes:
-      - '${WEBAPP_STORAGE_HOME}:/bitnami/mariadb'
+      - '${WEBAPP_STORAGE_HOME}/db:/bitnami/mariadb'
     environment:
       - MARIADB_USER=bn_wordpress
       - MARIADB_DATABASE=bitnami_wordpress
@@ -11,8 +11,8 @@ services:
   wordpress:
     image: 'docker.io/bitnami/wordpress:5-debian-10'
     ports:
-      - '80:8080'
-      - '443:8443'
+      - '80:80'
+      - '443:443'
     volumes:
       - '${WEBAPP_STORAGE_HOME}/site/wwwroot:/bitnami/wordpress'
     depends_on:
@@ -23,8 +23,3 @@ services:
       - WORDPRESS_DATABASE_USER=bn_wordpress
       - WORDPRESS_DATABASE_NAME=bitnami_wordpress
       - ALLOW_EMPTY_PASSWORD=yes
-volumes:
-  mariadb_data:
-    driver: local
-  wordpress_data:
-    driver: local
