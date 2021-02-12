@@ -5,11 +5,11 @@ services:
     user: root
     command: chown -R 1001:1001 /bitnami
     volumes:
-      - '${WEBAPP_STORAGE_HOME}/mariadb_data:/bitnami'
+      - '${WEBAPP_STORAGE_HOME}/site/mariadb_data:/bitnami/mariadb'
   mariadb:
     image: 'bitnami/mariadb:latest'
     volumes:
-      - '${WEBAPP_STORAGE_HOME}/mariadb_data:/bitnami'
+      - '${WEBAPP_STORAGE_HOME}/site/mariadb_data:/bitnami/mariadb'
     environment:
       - MARIADB_USER=bn_wordpress
       - MARIADB_DATABASE=bitnami_wordpress
@@ -18,11 +18,11 @@ services:
       - fix-mariadb-volume-ownership
   wordpress:
     image: 'bitnami/wordpress:latest'
-    user: root
     ports:
-      - '8000:80'
+      - '80:8080'
+      - '443:8443'
     volumes:
-      - '${WEBAPP_STORAGE_HOME}/site/wwwroot:/bitnami'
+      - '${WEBAPP_STORAGE_HOME}/site/wwwroot:/bitnami/wordpress'
     depends_on:
       - mariadb
     environment:
