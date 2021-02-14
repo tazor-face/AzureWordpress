@@ -15,7 +15,6 @@ services:
   wordpress:
     image: wordpress
     restart: always
-    user: root
     depends_on: db
     ports:
       - 8000:80
