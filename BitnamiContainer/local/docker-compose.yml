@@ -13,7 +13,8 @@ services:
     environment:
       - MARIADB_USER=bn_wordpress
       - MARIADB_DATABASE=bitnami_wordpress
-      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_PASSWORD=P@$$word
+      - MARIADB_ROOT_PASSWORD=P@$$word
     depends_on:
       - fix-mariadb-volume-ownership
   wordpress:
@@ -32,7 +33,8 @@ services:
       - MARIADB_PORT_NUMBER=3306
       - WORDPRESS_DATABASE_USER=bn_wordpress
       - WORDPRESS_DATABASE_NAME=bitnami_wordpress
-      - ALLOW_EMPTY_PASSWORD=yes
+      - WORDPRESS_DATABASE_PASSWORD=P@$$word
+
 volumes:
   mariadb_data:
     driver: local
