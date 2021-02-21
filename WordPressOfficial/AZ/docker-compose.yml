@@ -10,14 +10,17 @@ services:
       MYSQL_PASSWORD: examplepass
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
-      - ${WEBAPP_STORAGE_HOME}/site/db:/var/lib/mysql
-
+      - ${WEBAPP_STORAGE_HOME}/db:/var/lib/mysql
+  
   wordpress:
     image: wordpress
     restart: always
     depends_on: db
+    command: bash -c apk add openssh \
+     && echo "root:Docker!" | chpasswd 
     ports:
-      - 8000:80
+      - 80:80
+      - 443:443
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: exampleuser

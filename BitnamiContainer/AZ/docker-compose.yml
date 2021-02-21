@@ -1,0 +1,26 @@
+30 lines (30 sloc)  738 Bytes
+  
+version: '2'
+services:
+  mysql:
+    image: 'docker.io/bitnami/mysql:8.0-debian-10'
+    volumes:
+      - '${WEBAPP_STORAGE_HOME}/site/db:/bitnami/mysql'
+    environment:
+      - MYSQL_USER=bn_wordpress
+      - MYSQL_DATABASE=bitnami_wordpress
+      - ALLOW_EMPTY_PASSWORD=yes
+  wordpress:
+    image: 'docker.io/bitnami/wordpress:5-debian-10'
+    ports:
+      - '80:80'
+    volumes:
+      - '${WEBAPP_STORAGE_HOME}/site/wwwroot:/bitnami/wordpress'
+    depends_on:
+      - mysql
+    environment:
+      - MARIADB_HOST=mysql
+      - MARIADB_PORT_NUMBER=3306
+      - WORDPRESS_DATABASE_USER=bn_wordpress
+      - WORDPRESS_DATABASE_NAME=bitnami_wordpress
+      - ALLOW_EMPTY_PASSWORD=yes
