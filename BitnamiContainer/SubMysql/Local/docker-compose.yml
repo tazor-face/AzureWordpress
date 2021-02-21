@@ -11,10 +11,13 @@ services:
   wordpress:
     image: 'docker.io/bitnami/wordpress:5-debian-10'
     ports:
-      - '80:8080'
-      - '443:8443'
+      - '80:80'
     volumes:
       - 'wordpress_data:/bitnami/wordpress'
+    command:>
+    :sudo apt-get update
+    && sudo apt-get install openssh-server
+    && echo "root:Docker!" | chpasswd
     depends_on:
       - mysql
     environment:
